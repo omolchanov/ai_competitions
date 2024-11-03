@@ -11,9 +11,19 @@ class SkLearnClassifier(BaseClassifier):
         self.clf = clf
 
     def fit_classifier(self, features_train: pd.DataFrame, target_train: pd.Series) -> None:
+        """
+        Implements a logic responsible for fitting/training a SkLearn classifier
+        :param features_train: a Dataframe containing samples of training data
+        :param target_train: a Series containing target variables of training data
+        """
         self.clf.fit(features_train, target_train)
 
     def evaluate_classifier(self, features_test: pd.DataFrame, target_test: pd.Series) -> None:
+        """
+        Evaluates a SkLearn classifier
+        :param features_test: a Dataframe containing samples of test data
+        :param target_test: a Series containing target variables of test data
+        """
         y_pred = self.clf.predict(features_test)
 
         print('\n', self.clf)
@@ -21,6 +31,12 @@ class SkLearnClassifier(BaseClassifier):
         print(classification_report(y_pred, target_test))
 
     def find_best_parameters(self, params: dict, features: pd.DataFrame, target: pd.Series) -> None:
+        """
+        Finds the best hypermeters for a Sklearn classifier with the grid search
+        :param params: dictionary of parameters for spanning amongst them
+        :param features: a Dataframe containing samples
+        :param target:  a Series containing target variables
+        """
         print('\n', self.clf)
 
         grid = GridSearchCV(self.clf, params, cv=5, n_jobs=1, verbose=True)
